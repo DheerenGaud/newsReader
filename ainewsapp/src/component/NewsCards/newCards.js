@@ -9,14 +9,13 @@ const infoCards = [
   { color: '#4527a0', title: 'News by Terms', info: 'Bitcoin, PlayStation 5, Smartphones, Donald Trump...', text: 'What\'s up with PlayStation 5' },
   { color: '#283593', title: 'News by Sources', info: 'CNN, Wired, BBC News, Time, IGN, Buzzfeed, ABC News...', text: 'Give me the news from CNN' },
 ];
-export default ({ articles }) => {
+export default ({ articles , activeArticle }) => {
    const classes =useStyle()
-  //  if(!articles.length) 
 
   return (
     <Grow in>
       <Grid className={classes.container} container alignContent="stretch" spacing={3}>
-    {!articles?<>
+    {!articles||articles.length==0?<>
        {infoCards.map((infoCard)=>(
         <Grid className={classes.infoCard} item xs={12} sm={6} md={4} lg={3} style={{display:'flex'}}>
             <div className={classes.card} style={{backgroundColor:infoCard.color}}>
@@ -39,7 +38,7 @@ export default ({ articles }) => {
       </>:<>
       {articles.map((article, i) => (
         <Grid className={classes.container} item xs={12} sm={6} md={4} lg={3} style={{display:'flex'}}>
-        <Card key={i} article={article}  i={i}/>
+        <Card key={i} article={article} activeArticle={activeArticle}  i={i}/>
         </Grid>
         ))}
         </>}

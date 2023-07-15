@@ -1,12 +1,25 @@
 import { Card ,CardActions,CardActionArea,CardMedia,Typography,CardContent, Button } from "@material-ui/core"
-
+import classNames from "classnames"
+import { useEffect,useState,createRef } from "react"
 import useStyle from "./style"
-export default ({article:{description,publishedAt,source,url,title,urlToImage},i}) => {
+export default ({article:{description,publishedAt,source,url,title,urlToImage},i,activeArticle}) => {
   const classes=useStyle();
+
+  const [elRefs,setElRefs]=useState([]);
+  const scrollToRef=(ref)=>window.scroll(0,ref.current.offsetTop-50);
+  useEffect(()=>{
+     setElRefs((refs)=>Array(20).fill().map((_, j)=>refs[j] || createRef()))
+  },[])
+  useEffect(()=>{
+    if(i===activeArticle&&elRefs[activeArticle]){
+           scrollToRef(elRefs[activeArticle])
+    } 
+
+  },[i,activeArticle,elRefs])
 
   return (
     <>  
-     <Card className={classes.card}>
+     <Card ref={elRefs[i]} className={classNames(classes.card,activeArticle===i?classes.activeCard:null)}>
        <CardActionArea href={url} target="_blank">
         <CardMedia className={classes.media} image={urlToImage||"https://tse4.mm.bing.net/th?id=OIP.BvzGr1ffUtRGE0OEkyobAgHaE7&pid=Api&P=0&h=180"}/>
         <div className={classes.details}>
