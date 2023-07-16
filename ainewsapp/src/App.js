@@ -52,7 +52,7 @@ function App() {
 //   }
   return (
    <>
-   <h1>React News ReaderApp</h1>
+   <h1>Dheru News Reader App</h1>
      
    <NewCard  articles={newArticles} activeArticle={active}/>
    </>
