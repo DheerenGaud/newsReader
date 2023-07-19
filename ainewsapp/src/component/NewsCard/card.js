@@ -2,7 +2,7 @@ import { Card ,CardActions,CardActionArea,CardMedia,Typography,CardContent, Butt
 import classNames from "classnames"
 import { useEffect,useState,createRef } from "react"
 import useStyle from "./style"
-export default ({article:{description,publishedAt,source,url,title,urlToImage},i,activeArticle}) => {
+export default ({article:{description,publishedAt,source,url,title,urlToImage},i,activeArticle,setOpenModal,setModelArticle}) => {
   const classes=useStyle();
 
   const [elRefs,setElRefs]=useState([]);
@@ -17,8 +17,15 @@ export default ({article:{description,publishedAt,source,url,title,urlToImage},i
 
   },[i,activeArticle,elRefs])
 
+  const handleClick=()=>{
+    setModelArticle({description,publishedAt,source,url,title,urlToImage});
+    setOpenModal(true);
+  }
+
   return (
-    <>  
+    <>
+    
+    
      <Card ref={elRefs[i]} className={classNames(classes.card,activeArticle===i?classes.activeCard:null)}>
        <CardActionArea href={url} target="_blank">
         <CardMedia className={classes.media} image={urlToImage||"https://tse4.mm.bing.net/th?id=OIP.BvzGr1ffUtRGE0OEkyobAgHaE7&pid=Api&P=0&h=180"}/>
@@ -36,10 +43,13 @@ export default ({article:{description,publishedAt,source,url,title,urlToImage},i
         </CardContent>
        </CardActionArea>
        <CardActions  className={classes.cardActions}>
-        <Button size="small" color="primary">LernMore</Button>
+        <Button onClick={handleClick} >LernMore</Button>
+        {/* <a type="button" className="btn primary " color="primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@fat">See more</a> */}
         <Typography variant="h5" color="textSecondry">{i+1}</Typography>
        </CardActions>
      </Card>
+   
+  
     </>
   )
 }

@@ -1,6 +1,6 @@
 import Card from "../NewsCard/card"
 import { Grid,Grow,Typography } from "@material-ui/core";
-
+import "./model.css"
 import useStyle from "./style.js"
 
 const infoCards = [
@@ -9,10 +9,14 @@ const infoCards = [
   { color: '#4527a0', title: 'News by Terms', info: 'Bitcoin, PlayStation 5, Smartphones, Donald Trump...', text: 'What\'s up with PlayStation 5' },
   { color: '#283593', title: 'News by Sources', info: 'CNN, Wired, BBC News, Time, IGN, Buzzfeed, ABC News...', text: 'Give me the news from CNN' },
 ];
-export default ({ articles , activeArticle }) => {
+export default ({ articles ,activeArticle,setOpenModal,setModelArticle }) => {
    const classes =useStyle()
 
   return (
+
+<>
+
+    
     <Grow in>
       <Grid className={classes.container} container alignContent="stretch" spacing={3}>
     {!articles||articles.length==0?<>
@@ -38,13 +42,12 @@ export default ({ articles , activeArticle }) => {
       </>:<>
       {articles.map((article, i) => (
         <Grid className={classes.container} item xs={12} sm={6} md={4} lg={3} style={{display:'flex'}}>
-        <Card key={i} article={article} activeArticle={activeArticle}  i={i}/>
+        <Card key={i} article={article}  activeArticle={activeArticle} setOpenModal={setOpenModal} setModelArticle={setModelArticle} i={i}/>
         </Grid>
         ))}
         </>}
       </Grid>
-
-
     </Grow>
+    </>
   );
 };
